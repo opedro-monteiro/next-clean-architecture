@@ -1,34 +1,86 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Next JS - Arquitetura Limpa ![Em Andamento](https://img.shields.io/badge/status-andamento-yellow)
 
-## Getting Started
+O projeto **Next JS - Arquitetura Limpa** é uma aplicação de catálogo online desenvolvida com foco em boas práticas de organização, escalabilidade e performance. O principal objetivo é estruturar um projeto front-end moderno utilizando **React Query** e **Next.js**, com separação clara de responsabilidades, integração eficiente com o backend e estratégias avançadas de gerenciamento de dados.
 
-First, run the development server:
+A proposta é oferecer uma base sólida e reutilizável para sistemas web que demandem listagem, filtragem, cadastro e manipulação de dados, aproveitando ao máximo os recursos da stack **React + TypeScript + Tailwind + React Query**, com foco em produtividade e código limpo.
+
+## Tecnologias
+![Tecnologias](https://skillicons.dev/icons?i=typescript,nextjs,docker,postgres,react,nodejs,tailwind)
+
+## Índice
+
+- [Next JS - Arquitetura Limpa ](#next-js---arquitetura-limpa-)
+  - [Tecnologias](#tecnologias)
+  - [Índice](#índice)
+  - [Sobre](#sobre)
+  - [Funcionalidades](#funcionalidades)
+  - [Instalação](#instalação)
+  - [Uso](#uso)
+  - [Resultados](#resultados)
+  - [Contato](#contato)
+
+## Sobre
+
+Este projeto foi idealizado para estudar e aplicar:
+- Estrutura de pastas e organização de código com base em arquitetura limpa;
+- Data fetching eficiente com **React Query**, incluindo cache, refetch e loading states;
+- Mutations otimizadas com **atualizações otimistas** e gerenciamento de erros;
+- Filtros persistentes via parâmetros de URL, facilitando o compartilhamento de estados;
+- Paginação e scroll infinito com atualização dinâmica dos dados;
+- Boas práticas em escalabilidade e manutenibilidade com **TypeScript**.
+
+## Funcionalidades
+
+- 🔍 Filtros dinâmicos por categoria, preço e ordenação via parâmetros de URL;
+- 📦 Listagem de produtos com paginação ou scroll infinito;
+- ➕ Cadastro, edição e exclusão de produtos usando `mutations`;
+- 🔄 Refetch e atualização otimista com React Query;
+- 💾 Cache automático e invalidação inteligente;
+- 🌐 Separação entre camadas de domínio, dados e apresentação;
+- 🧪 Ambiente Docker configurado para simular backend com PostgreSQL (opcional).
+
+## Instalação
+
+Clone o repositório e instale as dependências:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/seu-usuario/nextjs-arquitetura-limpa.git
+cd nextjs-arquitetura-limpa
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Para rodar o ambiente com backend:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+docker-compose up -d
+npm run dev
+```
 
-## Learn More
+## Uso
 
-To learn more about Next.js, take a look at the following resources:
+Após iniciar a aplicação, acesse:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+http://localhost:3000
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Você poderá:
+- Navegar por produtos e aplicar filtros;
+- Ver os dados refletidos na URL (deep linking);
+- Cadastrar e gerenciar produtos (CRUD);
+- Analisar logs e cache para entender o fluxo do React Query.
 
-## Deploy on Vercel
+## Resultados
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+O projeto demonstra domínio em:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- ✅ React Query: queries, mutations, cache, refetch, optimistic updates;
+- ✅ Next.js: rotas dinâmicas, server-side rendering e arquitetura modular;
+- ✅ Gerenciamento de estado de dados com filtros por URL;
+- ✅ Interface moderna com Tailwind CSS;
+- ✅ Arquitetura limpa, separando camadas como `services`, `hooks`, `components`, e `pages`.
+
+## Contato
+
+📧 Email: [pedro.oliveira@monteirodev.com]  
+🔗 LinkedIn: [linkedin.com/in/opedro-monteiro](https://linkedin.com/in/opedro-monteiro)
