@@ -1,19 +1,32 @@
-import type { Metadata } from "next";
-import "./globals.css";
+import { ThemeProvider } from '@/components/theme-provider'
+import type { Metadata } from 'next'
+import './globals.css'
 
 export const metadata: Metadata = {
-  title: "NextJS with clean architecture",
-  description: "A simple NextJS app with clean architecture",
-};
+  title: 'NextJS with clean architecture',
+  description: 'A simple NextJS app with clean architecture',
+}
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body>{children}</body>
-    </html>
-  );
+    <>
+      <html lang="en" suppressHydrationWarning>
+        <head />
+        <body>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="light"
+            enableSystem
+            disableTransitionOnChange
+          >
+            {children}
+          </ThemeProvider>
+        </body>
+      </html>
+    </>
+  )
 }
