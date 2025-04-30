@@ -9,8 +9,6 @@ const compat = new FlatCompat({
   baseDirectory: __dirname,
 })
 
-const eslintConfig = [
-  ...compat.extends('@rocketseat/eslint-config/next', 'next/core-web-vitals'),
-]
+const eslintConfig = [...compat.extends('@rocketseat/eslint-config/next')]
 
 export default eslintConfig
