@@ -68,10 +68,7 @@ export function Header() {
       <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>
-            <NavigationMenuLink
-              href="/"
-              className={navigationMenuTriggerStyle()}
-            >
+            <NavigationMenuLink href="/" className="hover:bg-transparent">
               <Image
                 src={`/assets/SHOP.CO-${theme === 'light' ? 'dark' : 'light'}.svg`}
                 alt="Logo"
