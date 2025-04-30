@@ -1,3 +1,4 @@
+import { Header } from '@/components/header'
 import { ThemeProvider } from '@/components/theme-provider'
 import type { Metadata } from 'next'
 import './globals.css'
@@ -15,7 +16,6 @@ export default function RootLayout({
   return (
     <>
       <html lang="en" suppressHydrationWarning>
-        <head />
         <body>
           <ThemeProvider
             attribute="class"
@@ -23,6 +23,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
+            <Header />
             {children}
           </ThemeProvider>
         </body>
