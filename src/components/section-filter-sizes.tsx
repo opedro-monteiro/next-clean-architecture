@@ -19,7 +19,7 @@ export function SectionFilterSizes({
           <button
             key={size}
             onClick={() => toggleSize(size)}
-            className={`flex h-12 items-center justify-center rounded-full px-6 transition-colors ${
+            className={`flex h-12 items-center justify-center rounded-full px-6 transition-colors dark:text-white ${
               selectedSizes.includes(value)
                 ? 'bg-primary text-white'
                 : 'bg-secondary text-black'
