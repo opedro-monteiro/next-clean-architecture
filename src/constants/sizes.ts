@@ -1,6 +1,6 @@
-import { SizeEnum } from '@/application/schemas/size-schema'
+import { SizeEnumDto } from '@/application/dtos/size.dto'
 
-export const SIZES: Record<SizeEnum, string> = {
+export const SIZES: Record<SizeEnumDto, string> = {
   S: 'Small',
   M: 'Medium',
   L: 'Large',

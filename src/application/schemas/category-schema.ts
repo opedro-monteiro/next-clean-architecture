@@ -9,5 +9,4 @@ export const categoryEnum = z.enum([
   'CAP',
 ])
 
-export type CategoryEnum = z.infer<typeof categoryEnum>
 export const categorySchema = categoryEnum

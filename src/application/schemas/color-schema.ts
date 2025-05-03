@@ -13,5 +13,4 @@ export const colorEnum = z.enum([
   'BLACK',
 ])
 
-export type ColorEnum = z.infer<typeof colorEnum>
 export const colorSchema = colorEnum

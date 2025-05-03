@@ -1,6 +1,6 @@
-import { CategoryEnum } from '@/application/schemas/category-schema'
+import { CategoryEnumDto } from '@/application/dtos/category.dto'
 
-export const ITEMS: Record<CategoryEnum, string> = {
+export const ITEMS: Record<CategoryEnumDto, string> = {
   'T-SHIRT': 'T-shirts',
   JEANS: 'Jeans',
   SHIRTS: 'Shirts',

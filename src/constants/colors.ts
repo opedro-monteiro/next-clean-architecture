@@ -1,6 +1,6 @@
-import { ColorEnum } from '@/application/schemas/color-schema'
+import { ColorEnumDto } from '@/application/dtos/color.dto'
 
-export const COLORS: Record<ColorEnum, string> = {
+export const COLORS: Record<ColorEnumDto, string> = {
   GREEN: '#00C853',
   RED: '#FF0000',
   YELLOW: '#FFD700',
