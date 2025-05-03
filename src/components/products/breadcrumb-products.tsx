@@ -5,7 +5,7 @@ import {
   BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbSeparator,
-} from './ui/breadcrumb'
+} from '../ui/breadcrumb'
 
 export function BreadcrumbProducts() {
   return (

@@ -1,6 +1,6 @@
 'use client'
 import { formatPrice } from '@/helpers/formatPrice'
-import { RangeSlider } from './ui/range-slider'
+import { RangeSlider } from '../ui/range-slider'
 
 interface SectionFilterPriceProps {
   priceRange: number[]

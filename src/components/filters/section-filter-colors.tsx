@@ -1,7 +1,7 @@
 'use client'
 import { COLORS } from '@/constants/colors'
 import { Check } from 'lucide-react'
-import { Button } from './ui/button'
+import { Button } from '../ui/button'
 
 interface SectionFilterColorsProps {
   selectedColors: string[]

@@ -1,5 +1,5 @@
+import { ProductItemDto } from '../types/product-item.dto'
 import { ProductItem } from './product-item'
-import { ProductItemDto } from './types/product-item.dto'
 
 interface ProductGridProps {
   products: ProductItemDto[]

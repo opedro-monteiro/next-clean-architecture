@@ -5,15 +5,19 @@ import { useFilterColors } from '@/hooks/useFilterColors'
 import { useFilterPrice } from '@/hooks/useFilterPrice'
 import { useFilterSizes } from '@/hooks/useFilterSizes'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { SectionFilterCategories } from './section-filter-categories'
-import { SectionFilterColors } from './section-filter-colors'
-import { SectionFilterPrice } from './section-filter-price'
-import { SectionFilterSizes } from './section-filter-sizes'
+import { SectionFilterCategories } from './filters/section-filter-categories'
+import { SectionFilterColors } from './filters/section-filter-colors'
+import { SectionFilterPrice } from './filters/section-filter-price'
+import { SectionFilterSizes } from './filters/section-filter-sizes'
 import { Button } from './ui/button'
 import { Separator } from './ui/separator'
 import { SheetContent, SheetFooter, SheetHeader, SheetTitle } from './ui/sheet'
 
-export function SidebarContent() {
+interface SidebarContentProps {
+  setIsOpen: (isOpen: boolean) => void
+}
+
+export function SidebarContent({ setIsOpen }: SidebarContentProps) {
   const router = useRouter()
   const pathname = usePathname()
   const searchParams = useSearchParams()
@@ -30,6 +34,12 @@ export function SidebarContent() {
     params.set('max', priceRange[1].toString())
 
     router.push(`${pathname}?${params.toString()}`)
+    setIsOpen(false)
+  }
+
+  const handleResetFilters = () => {
+    router.push(`${pathname}`)
+    setIsOpen(false)
   }
 
   return (
@@ -67,7 +77,11 @@ export function SidebarContent() {
         <Button className="h-12 rounded-full" onClick={handleApplyFilters}>
           Apply Filters
         </Button>
-        <Button className="h-12 rounded-full" variant={'outline'}>
+        <Button
+          className="h-12 rounded-full"
+          variant={'outline'}
+          onClick={handleResetFilters}
+        >
           Reset Filters
         </Button>
       </SheetFooter>

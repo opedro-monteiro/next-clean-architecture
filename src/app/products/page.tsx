@@ -1,11 +1,12 @@
 'use client'
-import { BreadcrumbProducts } from '@/components/breadcrumb-products'
-import { ProductGrid } from '@/components/product-grid'
+import { BreadcrumbProducts } from '@/components/products/breadcrumb-products'
+import { ProductGrid } from '@/components/products/product-grid'
 import { SidebarContent } from '@/components/sidebar-content'
 import { ProductItemDto } from '@/components/types/product-item.dto'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetTrigger } from '@/components/ui/sheet'
 import { SlidersVerticalIcon } from 'lucide-react'
+import { useState } from 'react'
 
 const products: ProductItemDto[] = [
   {
@@ -74,12 +75,14 @@ const products: ProductItemDto[] = [
 ]
 
 export default function Products() {
+  const [isOpen, setIsOpen] = useState(false)
+
   return (
     <div className="mx-auto max-w-7xl px-4">
       <BreadcrumbProducts />
       <div className="mt-4 flex items-center justify-between">
         <h1 className="text-3xl font-bold">Products</h1>
-        <Sheet>
+        <Sheet open={isOpen} onOpenChange={() => setIsOpen(!isOpen)}>
           <SheetTrigger asChild>
             <Button
               variant="secondary"
@@ -88,7 +91,7 @@ export default function Products() {
               <SlidersVerticalIcon />
             </Button>
           </SheetTrigger>
-          <SidebarContent />
+          <SidebarContent setIsOpen={setIsOpen} />
         </Sheet>
       </div>
 
