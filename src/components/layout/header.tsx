@@ -102,6 +102,14 @@ export function Header() {
               about
             </NavigationMenuLink>
           </NavigationMenuItem>
+          <NavigationMenuItem>
+            <NavigationMenuLink
+              href="/dashboard"
+              className={navigationMenuTriggerStyle()}
+            >
+              dashboard
+            </NavigationMenuLink>
+          </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
 

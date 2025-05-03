@@ -1,7 +1,7 @@
 'use client'
 
 import { Checkbox } from '@/components/ui/checkbox'
-import { ITEMS } from '@/constants/items'
+import { ITEMS } from '@/constants/categories'
 
 interface SectionFilterCategoriesProps {
   selectedCategories: string[]
