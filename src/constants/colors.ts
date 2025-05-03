@@ -1,24 +1,14 @@
-export type Color =
-  | 'green'
-  | 'red'
-  | 'yellow'
-  | 'orange'
-  | 'cyan'
-  | 'blue'
-  | 'purple'
-  | 'pink'
-  | 'white'
-  | 'black'
+import { ColorEnum } from '@/application/schemas/color-schema'
 
-export const COLORS: Record<Color, string> = {
-  green: '#00C853',
-  red: '#FF0000',
-  yellow: '#FFD700',
-  orange: '#FF8C00',
-  cyan: '#00BCD4',
-  blue: '#0000FF',
-  purple: '#800080',
-  pink: '#FF1493',
-  white: '#FFFFFF',
-  black: '#000000',
+export const COLORS: Record<ColorEnum, string> = {
+  GREEN: '#00C853',
+  RED: '#FF0000',
+  YELLOW: '#FFD700',
+  ORANGE: '#FF8C00',
+  CYAN: '#00BCD4',
+  BLUE: '#0000FF',
+  PURPLE: '#800080',
+  PINK: '#FF1493',
+  WHITE: '#FFFFFF',
+  BLACK: '#000000',
 }
