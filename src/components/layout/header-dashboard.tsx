@@ -11,12 +11,19 @@ import {
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu'
 import { cn } from '@/lib/utils'
-import { Search, ShoppingCart } from 'lucide-react'
+import {
+  EditIcon,
+  PlusIcon,
+  Search,
+  ShoppingCart,
+  Trash2Icon,
+} from 'lucide-react'
 import { useTheme } from 'next-themes'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { SearchInput } from '../search-input'
 import { ModeToggleButton } from '../toggle-mode'
+import { Button } from '../ui/button'
 
 export function HeaderDashboard() {
   const { theme } = useTheme()
@@ -55,9 +62,33 @@ export function HeaderDashboard() {
           <NavigationMenuItem>
             <NavigationMenuTrigger>Products</NavigationMenuTrigger>
             <NavigationMenuContent>
-              <NavigationMenuLink>Add Product</NavigationMenuLink>
-              <NavigationMenuLink>Update Product</NavigationMenuLink>
-              <NavigationMenuLink>Remove Product</NavigationMenuLink>
+              <div className="flex w-full flex-col gap-2 p-6 md:w-52 lg:w-72">
+                <Button className="w-full" asChild variant="outline">
+                  <NavigationMenuLink href="/dashboard/add-product">
+                    <div className="flex items-center gap-2">
+                      <PlusIcon className="h-4 w-4 text-green-500" />
+                      Add Product
+                    </div>
+                  </NavigationMenuLink>
+                </Button>
+                <Button className="w-full" asChild variant="outline">
+                  <NavigationMenuLink href="/dashboard/update-product">
+                    <div className="flex items-center gap-2">
+                      <EditIcon className="h-4 w-4 text-yellow-500" />
+                      Update Product
+                    </div>
+                  </NavigationMenuLink>
+                </Button>
+
+                <Button className="w-full" asChild variant="outline">
+                  <NavigationMenuLink href="/dashboard/delete-product">
+                    <div className="flex items-center gap-2">
+                      <Trash2Icon className="h-4 w-4 text-red-500" />
+                      Remove Product
+                    </div>
+                  </NavigationMenuLink>
+                </Button>
+              </div>
             </NavigationMenuContent>
           </NavigationMenuItem>
         </NavigationMenuList>
