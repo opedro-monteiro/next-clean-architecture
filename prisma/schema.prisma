@@ -1,4 +1,5 @@
-// This is your Prisma schema file,
+// This is your Prisma schema file
+
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
@@ -19,8 +20,42 @@ model Product {
   name        String
   description String
   price       Float
-  category    String
   imageUrl    String
+  category    Category
+  size        Size
+  color       Color
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
+
+enum Category {
+  T_SHIRT
+  JEANS
+  SHIRTS
+  SHORTS
+  SWEATER
+  CAP
+}
+
+enum Size {
+  S
+  M
+  L
+  XL
+  XXL
+ XXXL
+}
+
+enum Color {
+  GREEN
+  RED
+  YELLOW
+  ORANGE
+  CYAN
+  BLUE
+  PURPLE
+  PINK
+  WHITE
+  BLACK
+}
+
