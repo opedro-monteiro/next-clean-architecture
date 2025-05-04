@@ -4,13 +4,21 @@ import { colorSchema } from './color-schema'
 import { sizeSchema } from './size-schema'
 
 export const createProductFormSchema = z.object({
-  name: z.string().min(1),
-  price: z.number().min(0),
-  description: z.string().min(1),
-  imageUrl: z.string().min(1),
+  name: z
+    .string({ message: 'Name is required' })
+    .min(1, { message: 'Name is too short' }),
+  price: z
+    .number({ message: 'Price is required' })
+    .min(0, { message: 'Price must be greater than 0' }),
+  description: z
+    .string({ message: 'Description is required' })
+    .min(5, { message: 'Description is too short' }),
+  imageUrl: z
+    .string({ message: 'Image URL is required' })
+    .min(1, { message: 'Image URL is too short' }),
   category: categorySchema,
   size: sizeSchema,
   color: colorSchema,
 })
 
-export type CreateProductForm = z.infer<typeof createProductFormSchema>
+export type CreateProductFormData = z.infer<typeof createProductFormSchema>
