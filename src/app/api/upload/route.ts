@@ -1,4 +1,6 @@
-import { uploadFileToS3 } from '@/lib/aws-s3'
+import { ResponseDto } from '@/application/dtos/response.dto'
+import { StorageDto } from '@/application/dtos/storage.dto'
+import { storageService } from '@/lib/storage'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function POST(req: NextRequest) {
@@ -9,20 +11,40 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'No file provided' }, { status: 400 })
   }
 
-  console.log('FormData', formData)
-  console.log('File', file)
+  const result = await storageService.upload(file, file.name)
 
-  const fileBuffer = Buffer.from(await file.arrayBuffer())
-
-  const result = await uploadFileToS3({
-    name: file.name,
-    type: file.type,
-    buffer: fileBuffer,
-  })
-
-  if (!result.success) {
-    return NextResponse.json({ error: result.message }, { status: 500 })
+  if (!result) {
+    return NextResponse.json({ error: result }, { status: 500 })
   }
 
-  return NextResponse.json({ url: result.url })
+  return NextResponse.json<ResponseDto<StorageDto>>({
+    message: 'File uploaded successfully',
+    status: 200,
+    data: result,
+  })
+}
+
+// Chamada: DELETE /api/upload?name=imagem.jpg
+export async function DELETE(req: NextRequest) {
+  const { searchParams } = new URL(req.url)
+  const name = searchParams.get('name')
+
+  console.log('@DELETE name=', name)
+
+  if (!name) {
+    return NextResponse.json(
+      { error: 'filename not provided' },
+      { status: 400 },
+    )
+  }
+
+  await storageService.delete(name)
+
+  console.log('@DELETE after delete')
+
+  return NextResponse.json<ResponseDto<void>>({
+    message: 'File deleted successfully',
+    status: 200,
+    data: undefined,
+  })
 }
