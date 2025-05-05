@@ -14,3 +14,12 @@ export interface ProductDto {
   createdAt: Date
   updatedAt: Date
 }
+
+export type CreateProductDto = Omit<
+  ProductDto,
+  'id' | 'createdAt' | 'updatedAt'
+>
+
+export type UpdateProductDto = Partial<
+  Omit<ProductDto, 'id' | 'createdAt' | 'updatedAt'>
+>

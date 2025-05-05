@@ -117,35 +117,67 @@ export default function AddProduct() {
     }
   }
 
-  const onSubmit = async (values: CreateProductFormData) => {
-    // Here you would typically send the data to your API
-    console.log({
-      ...values,
-      imageUrl: croppedImage, // Use the cropped image
-    })
-
-    if (!fileInputRef.current?.files?.[0]) {
-      toast.error('Please select an image')
-      return
-    }
-
-    // handle upload file
+  async function uploadImage(file: File, filename: string): Promise<string> {
     const formData = new FormData()
-    const file = fileInputRef.current?.files?.[0]
     formData.append('file', file)
+    formData.append('filename', filename)
 
     const res = await fetch('/api/upload', {
       method: 'POST',
       body: formData,
     })
 
-    const data = await res.json()
-    console.log('URL da imagem:', data.url)
+    if (!res.ok) throw new Error('Failed to upload image')
 
-    if (data.url) {
+    const data = await res.json()
+    console.log('uploadImage=', data)
+    return data.data.url
+  }
+
+  async function createProduct(
+    productData: CreateProductFormData,
+  ): Promise<void> {
+    const res = await fetch('/api/products', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(productData),
+    })
+
+    if (!res.ok) throw new Error('Failed to create product')
+  }
+
+  async function deleteImage(filename: string): Promise<void> {
+    await fetch(`/api/upload?name=${encodeURIComponent(`${filename}`)}`, {
+      method: 'DELETE',
+    })
+  }
+
+  const onSubmit = async (values: CreateProductFormData) => {
+    const file = fileInputRef.current?.files?.[0]
+
+    if (!file) {
+      toast.error('Please select an image')
+      return
+    }
+
+    const filename = `${Date.now()}-${file.name}`
+
+    try {
+      const imageUrl = await uploadImage(file, filename)
+
+      await createProduct({ ...values, imageUrl })
+
       toast.success('Product added successfully!')
-    } else {
-      toast.error('Product added failed!')
+    } catch (error) {
+      console.error(error)
+      toast.error((error as Error).message || 'Something went wrong')
+
+      // Rollback (imagem)
+      try {
+        await deleteImage(filename)
+      } catch (rollbackError) {
+        console.error('Rollback failed:', rollbackError)
+      }
     }
   }
 
