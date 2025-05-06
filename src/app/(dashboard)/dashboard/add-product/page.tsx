@@ -64,7 +64,7 @@ export default function AddProduct() {
       price: 0,
       description: '',
       imageUrl: '',
-      category: 'T-SHIRT',
+      category: 'T_SHIRT',
       size: 'S',
       color: 'GREEN',
     },
