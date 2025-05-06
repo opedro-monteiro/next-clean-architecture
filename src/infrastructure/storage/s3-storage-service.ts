@@ -1,7 +1,7 @@
 import { StorageDto } from '@/application/dtos/storage.dto'
 import { env } from '@/configs/env'
 import { StorageService } from '@/domain/interfaces/storage'
-import { s3Client } from '@/lib/aws-s3'
+import { s3Client } from '@/lib/aws/aws-s3'
 import { DeleteObjectCommand, PutObjectCommand } from '@aws-sdk/client-s3'
 
 export class S3StorageService implements StorageService {

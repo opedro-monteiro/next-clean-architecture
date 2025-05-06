@@ -1,6 +1,6 @@
 'use client'
 
-import { SIZES } from '@/constants/sizes'
+import { SIZES } from '@/shared/constants/sizes'
 
 interface SectionFilterSizesProps {
   selectedSizes: string[]

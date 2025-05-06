@@ -4,7 +4,7 @@ import {
   UpdateProductDto,
 } from '@/application/dtos/product.dto'
 import { ProductRepository } from '@/domain/repositories/product-repository'
-import { prisma } from '@/lib/prisma'
+import { prisma } from '@/lib/infra/prisma'
 
 export class PrismaProductRepository implements ProductRepository {
   async create(productData: CreateProductDto): Promise<ProductDto> {

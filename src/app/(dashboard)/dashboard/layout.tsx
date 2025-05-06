@@ -1,5 +1,6 @@
 import '@/app/globals.css'
 import { HeaderDashboard } from '@/components/layout/header-dashboard'
+import { LoadingOverlay } from '@/components/loading/loading-overlay'
 import { ThemeProvider } from '@/components/theme-provider'
 import type { Metadata } from 'next'
 import { Toaster } from 'sonner'
@@ -29,6 +30,7 @@ export default function RootLayout({
               {children}
             </main>
             <Toaster richColors />
+            <LoadingOverlay />
           </ThemeProvider>
         </body>
       </html>

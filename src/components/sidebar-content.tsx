@@ -1,9 +1,9 @@
 'use client'
 
-import { useFilterCategories } from '@/hooks/useFilterCategories'
-import { useFilterColors } from '@/hooks/useFilterColors'
-import { useFilterPrice } from '@/hooks/useFilterPrice'
-import { useFilterSizes } from '@/hooks/useFilterSizes'
+import { useFilterCategories } from '@/hooks/filters/useFilterCategories'
+import { useFilterColors } from '@/hooks/filters/useFilterColors'
+import { useFilterPrice } from '@/hooks/filters/useFilterPrice'
+import { useFilterSizes } from '@/hooks/filters/useFilterSizes'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { SectionFilterCategories } from './filters/section-filter-categories'
 import { SectionFilterColors } from './filters/section-filter-colors'

@@ -3,7 +3,7 @@ import { ResponseDto } from '@/application/dtos/response.dto'
 import { createProductFormSchema } from '@/application/schemas/create-product-form-schema'
 import { CreateProduct } from '@/application/useCases/products/createProduct'
 import { GetProducts } from '@/application/useCases/products/getProducts'
-import { productRepository } from '@/lib/repositories'
+import { productRepository } from '@/lib/infra/repositories'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function POST(req: NextRequest) {

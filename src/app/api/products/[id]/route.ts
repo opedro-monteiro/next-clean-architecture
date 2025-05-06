@@ -4,7 +4,7 @@ import { updateProductFormSchema } from '@/application/schemas/update-product-fo
 import { DeleteProduct } from '@/application/useCases/products/deleteProduct'
 import { GetProductById } from '@/application/useCases/products/getProductById'
 import { UpdateProduct } from '@/application/useCases/products/updateProduct'
-import { productRepository } from '@/lib/repositories'
+import { productRepository } from '@/lib/infra/repositories'
 import { NextResponse } from 'next/server'
 
 export async function GET({ params }: { params: Promise<{ id: string }> }) {

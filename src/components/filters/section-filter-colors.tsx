@@ -1,5 +1,5 @@
 'use client'
-import { COLORS } from '@/constants/colors'
+import { COLORS } from '@/shared/constants/colors'
 import { Check } from 'lucide-react'
 import { Button } from '../ui/button'
 

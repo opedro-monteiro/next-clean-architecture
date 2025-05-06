@@ -1,4 +1,4 @@
-import { ProductItemDto } from '../types/product-item.dto'
+import { ProductItemDto } from '../../application/dtos/product-item.dto'
 import { ProductItem } from './product-item'
 
 interface ProductGridProps {

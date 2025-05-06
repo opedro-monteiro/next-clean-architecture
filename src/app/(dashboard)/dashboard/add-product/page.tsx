@@ -1,11 +1,17 @@
 'use client'
-import type React from 'react'
-import { useCallback, useRef, useState } from 'react'
+import { useCallback } from 'react'
 
+import { createProduct } from '@/application/api-clients/productService'
+import {
+  deleteImage,
+  uploadImage,
+} from '@/application/api-clients/uploadService'
 import {
   type CreateProductFormData,
   createProductFormSchema,
 } from '@/application/schemas/create-product-form-schema'
+import { formatPrice } from '@/application/utils/formatPrice'
+import { loading } from '@/components/loading/loading-controller'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -32,30 +38,21 @@ import {
 } from '@/components/ui/select'
 import { Slider } from '@/components/ui/slider'
 import { Textarea } from '@/components/ui/textarea'
-import { ITEMS } from '@/constants/categories'
-import { COLORS } from '@/constants/colors'
-import { SIZES } from '@/constants/sizes'
-import { formatPrice } from '@/helpers/formatPrice'
-import { getCroppedImg } from '@/lib/image-cropper'
+import { useCroppedImage } from '@/hooks/useCroppedImage'
+import { getCroppedImg } from '@/lib/img/image-cropper'
+import { ITEMS } from '@/shared/constants/categories'
+import { COLORS } from '@/shared/constants/colors'
+import { SIZES } from '@/shared/constants/sizes'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { RotateCw, Upload, X } from 'lucide-react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import Cropper, { type Area } from 'react-easy-crop'
+import Cropper from 'react-easy-crop'
 import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 
 export default function AddProduct() {
   const router = useRouter()
-  const [imageSrc, setImageSrc] = useState<string | null>(null)
-  const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null)
-  const [crop, setCrop] = useState({ x: 0, y: 0 })
-  const [zoom, setZoom] = useState(1)
-  const [rotation, setRotation] = useState(0)
-  const [isCropping, setIsCropping] = useState(false)
-  const [croppedImage, setCroppedImage] = useState<string | null>(null)
-
-  const fileInputRef = useRef<HTMLInputElement>(null)
 
   const form = useForm<CreateProductFormData>({
     resolver: zodResolver(createProductFormSchema),
@@ -70,25 +67,24 @@ export default function AddProduct() {
     },
   })
 
-  const onFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length > 0) {
-      const file = e.target.files[0]
-      const reader = new FileReader()
-      reader.addEventListener('load', () => {
-        setImageSrc(reader.result as string)
-        setIsCropping(true)
-        setCroppedImage(null)
-      })
-      reader.readAsDataURL(file)
-    }
-  }
-
-  const onCropComplete = useCallback(
-    (_croppedArea: Area, croppedAreaPixels: Area) => {
-      setCroppedAreaPixels(croppedAreaPixels)
-    },
-    [],
-  )
+  const {
+    croppedAreaPixels,
+    crop,
+    setCrop,
+    zoom,
+    setZoom,
+    isCropping,
+    setIsCropping,
+    rotation,
+    setRotation,
+    croppedImage,
+    setCroppedImage,
+    imageSrc,
+    setImageSrc,
+    fileInputRef,
+    onFileChange,
+    onCropComplete,
+  } = useCroppedImage()
 
   const showCroppedImage = useCallback(async () => {
     try {
@@ -117,42 +113,13 @@ export default function AddProduct() {
     }
   }
 
-  async function uploadImage(file: File, filename: string): Promise<string> {
-    const formData = new FormData()
-    formData.append('file', file)
-    formData.append('filename', filename)
-
-    const res = await fetch('/api/upload', {
-      method: 'POST',
-      body: formData,
-    })
-
-    if (!res.ok) throw new Error('Failed to upload image')
-
-    const data = await res.json()
-    console.log('uploadImage=', data)
-    return data.data.url
-  }
-
-  async function createProduct(
-    productData: CreateProductFormData,
-  ): Promise<void> {
-    const res = await fetch('/api/products', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(productData),
-    })
-
-    if (!res.ok) throw new Error('Failed to create product')
-  }
-
-  async function deleteImage(filename: string): Promise<void> {
-    await fetch(`/api/upload?name=${encodeURIComponent(`${filename}`)}`, {
-      method: 'DELETE',
-    })
-  }
+  const handleResetForm = useCallback(() => {
+    form.reset()
+    clearImage()
+  }, [form, clearImage])
 
   const onSubmit = async (values: CreateProductFormData) => {
+    loading.show()
     const file = fileInputRef.current?.files?.[0]
 
     if (!file) {
@@ -167,11 +134,14 @@ export default function AddProduct() {
 
       await createProduct({ ...values, imageUrl })
 
+      handleResetForm()
+
+      loading.hide()
       toast.success('Product added successfully!')
     } catch (error) {
       console.error(error)
       toast.error((error as Error).message || 'Something went wrong')
-
+      loading.hide()
       // Rollback (imagem)
       try {
         await deleteImage(filename)

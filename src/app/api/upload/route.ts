@@ -1,6 +1,6 @@
 import { ResponseDto } from '@/application/dtos/response.dto'
 import { StorageDto } from '@/application/dtos/storage.dto'
-import { storageService } from '@/lib/storage'
+import { storageService } from '@/lib/aws/storage'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function POST(req: NextRequest) {
