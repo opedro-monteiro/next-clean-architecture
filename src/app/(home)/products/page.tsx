@@ -1,81 +1,26 @@
 'use client'
-import { ProductItemDto } from '@/application/dtos/product-item.dto'
+import { loading } from '@/components/loading/loading-controller'
 import { BreadcrumbProducts } from '@/components/products/breadcrumb-products'
 import { ProductGrid } from '@/components/products/product-grid'
 import { SidebarContent } from '@/components/sidebar-content'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetTrigger } from '@/components/ui/sheet'
+import { useProducts } from '@/hooks/products/useProduct'
 import { SlidersVerticalIcon } from 'lucide-react'
-import { useState } from 'react'
-
-const products: ProductItemDto[] = [
-  {
-    title: 'Produto 1 muito top',
-    price: 145,
-    oldPrice: 242,
-    discount: 20,
-    imageUrl: '/assets/products/product-1.png',
-  },
-  {
-    title: 'Produto 2 muito top',
-    price: 167,
-    oldPrice: 216,
-    discount: 22,
-    imageUrl: '/assets/products/product-2.png',
-  },
-  {
-    title: 'Produto 3 muito top',
-    price: 178,
-    oldPrice: 333,
-    discount: 26,
-    imageUrl: '/assets/products/product-3.png',
-  },
-  {
-    title: 'Produto 4 muito top',
-    price: 145,
-    oldPrice: 242,
-    discount: 20,
-    imageUrl: '/assets/products/product-4.png',
-  },
-  {
-    title: 'Produto 5 muito top',
-    price: 145,
-    oldPrice: 242,
-    discount: 20,
-    imageUrl: '/assets/products/product-5.png',
-  },
-  {
-    title: 'Produto 6 muito top',
-    price: 145,
-    oldPrice: 242,
-    discount: 20,
-    imageUrl: '/assets/products/product-6.png',
-  },
-  {
-    title: 'Produto 7 muito top',
-    price: 145,
-    oldPrice: 242,
-    discount: 20,
-    imageUrl: '/assets/products/product-7.png',
-  },
-  {
-    title: 'Produto 8 muito top',
-    price: 145,
-    oldPrice: 242,
-    discount: 20,
-    imageUrl: '/assets/products/product-8.png',
-  },
-  {
-    title: 'Produto 9 muito top',
-    price: 145,
-    oldPrice: 242,
-    discount: 20,
-    imageUrl: '/assets/products/product-9.png',
-  },
-]
+import { useEffect, useState } from 'react'
 
 export default function Products() {
   const [isOpen, setIsOpen] = useState(false)
+
+  const { data: products, isLoading } = useProducts()
+
+  useEffect(() => {
+    if (isLoading) {
+      loading.show()
+    } else {
+      loading.hide()
+    }
+  }, [isLoading])
 
   return (
     <div className="mx-auto max-w-7xl px-4">
@@ -94,8 +39,13 @@ export default function Products() {
           <SidebarContent setIsOpen={setIsOpen} />
         </Sheet>
       </div>
-
-      <ProductGrid products={products} />
+      {products ? (
+        <ProductGrid products={products} />
+      ) : (
+        <div className="flex h-full items-center justify-center">
+          <p className="text-2xl font-bold">No products found</p>
+        </div>
+      )}
     </div>
   )
 }

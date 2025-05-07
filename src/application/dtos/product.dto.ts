@@ -11,6 +11,8 @@ export interface ProductDto {
   category: CategoryEnumDto
   size: SizeEnumDto
   color: ColorEnumDto
+  oldPrice: number | null
+  discount: number | null
   createdAt: Date
   updatedAt: Date
 }
