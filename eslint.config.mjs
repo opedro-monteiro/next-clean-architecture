@@ -11,7 +11,10 @@ const compat = new FlatCompat({
 })
 
 const eslintConfig = [
-  ...compat.extends('@rocketseat/eslint-config/next'),
+  ...compat.extends(
+    '@rocketseat/eslint-config/next',
+    'plugin:@tanstack/query/recommended',
+  ),
   prettier,
 ]
 

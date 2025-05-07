@@ -21,6 +21,8 @@ model Product {
   description String
   price       Float
   imageUrl    String
+  oldPrice    Float?
+  discount    Float?
   category    Category
   size        Size
   color       Color
