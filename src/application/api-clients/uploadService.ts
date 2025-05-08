@@ -1,3 +1,6 @@
+import axios from 'axios'
+import { ResponseDto } from '../dtos/response.dto'
+
 export async function uploadImage(
   file: File,
   filename: string,
@@ -6,19 +9,27 @@ export async function uploadImage(
   formData.append('file', file)
   formData.append('filename', filename)
 
-  const res = await fetch('/api/upload', {
-    method: 'POST',
-    body: formData,
-  })
+  const { data } = await axios.post<ResponseDto<{ url: string }>>(
+    '/api/upload',
+    formData,
+  )
 
-  if (!res.ok) throw new Error('Failed to upload image')
+  if (!data.data.url) throw new Error('Failed to upload image')
 
-  const data = await res.json()
   return data.data.url
 }
 
-export async function deleteImage(filename: string): Promise<void> {
-  await fetch(`/api/upload?name=${encodeURIComponent(filename)}`, {
-    method: 'DELETE',
-  })
+export async function deleteImage(filename: string): Promise<number> {
+  try {
+    const { data } = await axios.delete<ResponseDto<void>>(
+      `/api/upload?name=${encodeURIComponent(filename)}`,
+    )
+
+    if (data.status !== 200) throw new Error('Failed to delete image')
+
+    return data.status
+  } catch (error) {
+    console.error('Error deleting image:', error)
+    throw new Error('Failed to delete image')
+  }
 }

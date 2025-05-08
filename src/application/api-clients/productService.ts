@@ -1,13 +1,17 @@
+import axios from 'axios'
+import { ProductDto } from '../dtos/product.dto'
+import { ResponseDto } from '../dtos/response.dto'
 import { CreateProductFormData } from '../schemas/create-product-form-schema'
 
 export async function createProduct(
   productData: CreateProductFormData,
-): Promise<void> {
-  const res = await fetch('/api/products', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(productData),
-  })
+): Promise<ProductDto> {
+  const { data } = await axios.post<ResponseDto<ProductDto>>(
+    '/api/products',
+    productData,
+  )
 
-  if (!res.ok) throw new Error('Failed to create product')
+  if (!data.data) throw new Error('Failed to create product')
+
+  return data.data
 }
