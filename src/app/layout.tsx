@@ -1,4 +1,5 @@
 import { LoadingOverlay } from '@/components/loading/loading-overlay'
+import Providers from '@/components/providers/progress-provider'
 import { QueryProvider } from '@/components/providers/query-provider'
 import { ThemeProvider } from '@/components/theme-provider'
 import { Toaster } from '@/components/ui/sonner'
@@ -13,9 +14,7 @@ export default function RootLayout({
       <body>
         <QueryProvider>
           <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
-            <main className="container mx-auto px-4 py-8 md:px-8 lg:px-16">
-              {children}
-            </main>
+            <Providers>{children}</Providers>
             <Toaster richColors />
             <LoadingOverlay />
           </ThemeProvider>

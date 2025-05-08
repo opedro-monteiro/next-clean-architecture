@@ -18,6 +18,7 @@
   "dependencies": {
     "@aws-sdk/client-s3": "^3.802.0",
     "@aws-sdk/lib-storage": "^3.802.0",
+    "@bprogress/next": "^3.2.12",
     "@hookform/resolvers": "^5.0.1",
     "@prisma/client": "^6.7.0",
     "@radix-ui/react-checkbox": "^1.2.3",

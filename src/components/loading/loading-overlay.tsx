@@ -1,4 +1,5 @@
 'use client'
+
 import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
 import { Mosaic } from 'react-loading-indicators'
@@ -6,14 +7,17 @@ import { loading } from './loading-controller'
 
 export function LoadingOverlay() {
   const [isVisible, setIsVisible] = useState(false)
+  const [isMounted, setIsMounted] = useState(false)
   const { theme } = useTheme()
 
+  // Garante que o componente só renderize após montar no client
   useEffect(() => {
+    setIsMounted(true)
     const unsubscribe = loading.subscribe(setIsVisible)
     return unsubscribe
   }, [])
 
-  if (!isVisible) return null
+  if (!isMounted || !isVisible) return null
 
   const color = theme === 'dark' ? '#fff' : '#000'
 
