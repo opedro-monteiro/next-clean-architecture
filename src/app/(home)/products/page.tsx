@@ -5,7 +5,7 @@ import { ProductGrid } from '@/components/products/product-grid'
 import { SidebarContent } from '@/components/sidebar-content'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetTrigger } from '@/components/ui/sheet'
-import { useProducts } from '@/hooks/products/useProduct'
+import { useProducts } from '@/hooks/products/use-get-products'
 import { SlidersVerticalIcon } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
