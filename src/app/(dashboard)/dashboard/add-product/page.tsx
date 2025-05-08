@@ -1,7 +1,6 @@
 'use client'
 import { useCallback } from 'react'
 
-import { createProduct } from '@/application/api-clients/productService'
 import {
   deleteImage,
   uploadImage,
@@ -38,6 +37,7 @@ import {
 } from '@/components/ui/select'
 import { Slider } from '@/components/ui/slider'
 import { Textarea } from '@/components/ui/textarea'
+import { useCreateProduct } from '@/hooks/products/use-create-product'
 import { useCroppedImage } from '@/hooks/useCroppedImage'
 import { getCroppedImg } from '@/lib/img/image-cropper'
 import { ITEMS } from '@/shared/constants/categories'
@@ -53,6 +53,8 @@ import { toast } from 'sonner'
 
 export default function AddProduct() {
   const router = useRouter()
+
+  const { mutate: createProduct } = useCreateProduct()
 
   const form = useForm<CreateProductFormData>({
     resolver: zodResolver(createProductFormSchema),
@@ -132,12 +134,14 @@ export default function AddProduct() {
     try {
       const imageUrl = await uploadImage(file, filename)
 
-      await createProduct({ ...values, imageUrl })
+      createProduct({ ...values, imageUrl })
+      // await createProduct({ ...values, imageUrl }) IREI CHAMR MINHA MUTATION
 
       handleResetForm()
 
       loading.hide()
       toast.success('Product added successfully!')
+      router.push('/dashboard')
     } catch (error) {
       console.error(error)
       toast.error((error as Error).message || 'Something went wrong')

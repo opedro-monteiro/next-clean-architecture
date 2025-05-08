@@ -12,8 +12,6 @@ const fetchProducts = async (): Promise<ProductDto[]> => {
       throw new Error('No product data received')
     }
 
-    await new Promise((resolve) => setTimeout(resolve, 3000))
-
     return data.data
   } catch (error) {
     if (error instanceof AxiosError) {

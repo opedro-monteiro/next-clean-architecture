@@ -23,7 +23,7 @@ export default function Products() {
   }, [isLoading])
 
   return (
-    <div className="mx-auto max-w-7xl px-4">
+    <main className="container mx-auto px-4 py-8 md:px-8 lg:px-16">
       <BreadcrumbProducts />
       <div className="mt-4 flex items-center justify-between">
         <h1 className="text-3xl font-bold">Products</h1>
@@ -46,6 +46,6 @@ export default function Products() {
           <p className="text-2xl font-bold">No products found</p>
         </div>
       )}
-    </div>
+    </main>
   )
 }
