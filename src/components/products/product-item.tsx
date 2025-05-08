@@ -1,4 +1,13 @@
+'use client'
 import { ProductDto } from '@/application/dtos/product.dto'
+import { Edit2, Trash2 } from 'lucide-react'
+import { Button } from '../ui/button'
+
+interface ProductItemProps extends ProductDto {
+  showActions?: boolean
+  onEdit?: () => void
+  onDelete?: () => void
+}
 
 export function ProductItem({
   name,
@@ -6,7 +15,10 @@ export function ProductItem({
   oldPrice,
   discount,
   imageUrl,
-}: ProductDto) {
+  showActions = false,
+  onEdit,
+  onDelete,
+}: ProductItemProps) {
   return (
     <div className="flex w-full flex-col justify-center pl-4">
       <div className="h-44 w-44 lg:h-72 lg:w-72">
@@ -28,6 +40,25 @@ export function ProductItem({
             </p>
           )}
         </div>
+
+        {showActions && (
+          <div className="mt-2 flex gap-2">
+            <Button
+              onClick={onEdit}
+              size={'icon'}
+              className="text-blue-500 hover:underline"
+            >
+              <Edit2 />
+            </Button>
+            <Button
+              onClick={onDelete}
+              size={'icon'}
+              className="text-red-500 hover:underline"
+            >
+              <Trash2 />
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   )
