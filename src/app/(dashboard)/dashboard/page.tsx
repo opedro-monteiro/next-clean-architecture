@@ -18,7 +18,7 @@ export default function Dashboard() {
   return (
     <main className="container mx-auto px-4 py-8 md:px-8 lg:px-16">
       {products ? (
-        <ProductGrid products={products} />
+        <ProductGrid products={products} showActions />
       ) : (
         <div className="flex h-full items-center justify-center">
           <p className="text-2xl font-bold">No products found</p>
