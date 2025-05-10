@@ -122,10 +122,12 @@ export default function AddProduct() {
 
   const onSubmit = async (values: CreateProductFormData) => {
     loading.show()
+
     const file = fileInputRef.current?.files?.[0]
 
     if (!file) {
       toast.error('Please select an image')
+      loading.hide()
       return
     }
 
@@ -133,20 +135,30 @@ export default function AddProduct() {
 
     try {
       const imageUrl = await uploadImage(file, filename)
-
-      createProduct({ ...values, imageUrl })
-      // await createProduct({ ...values, imageUrl }) IREI CHAMR MINHA MUTATION
-
-      handleResetForm()
-
+      createProduct(
+        { ...values, imageUrl },
+        {
+          onSuccess: () => {
+            handleResetForm()
+            toast.success('Product added successfully!')
+            router.push('/dashboard')
+          },
+          onError: (error) => {
+            toast.error((error as Error).message || 'Something went wrong')
+            deleteImage(filename)
+          },
+          onSettled: () => {
+            loading.hide()
+          },
+        },
+      )
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        toast.error(error.message)
+      } else {
+        toast.error('Something went wrong during upload')
+      }
       loading.hide()
-      toast.success('Product added successfully!')
-      router.push('/dashboard')
-    } catch (error) {
-      console.error(error)
-      toast.error((error as Error).message || 'Something went wrong')
-      loading.hide()
-      // Rollback (imagem)
       try {
         await deleteImage(filename)
       } catch (rollbackError) {
