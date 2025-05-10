@@ -19,6 +19,8 @@ export const createProductFormSchema = z.object({
   category: categorySchema,
   size: sizeSchema,
   color: colorSchema,
+  oldPrice: z.number().nullable(),
+  discount: z.number().nullable(),
 })
 
 export type CreateProductFormData = z.infer<typeof createProductFormSchema>

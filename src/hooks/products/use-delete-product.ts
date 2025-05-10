@@ -1,4 +1,4 @@
-import { deleteProduct } from '@/application/api-clients/deleteProduct'
+import { deleteProduct } from '@/application/api-clients/productService'
 import { QueryKeysProducts } from '@/application/query-keys/query-keys'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 

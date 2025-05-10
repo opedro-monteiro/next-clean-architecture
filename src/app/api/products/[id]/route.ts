@@ -4,10 +4,14 @@ import { updateProductFormSchema } from '@/application/schemas/update-product-fo
 import { DeleteProduct } from '@/application/useCases/products/deleteProduct'
 import { GetProductById } from '@/application/useCases/products/getProductById'
 import { UpdateProduct } from '@/application/useCases/products/updateProduct'
+import { storageService } from '@/lib/aws/storage'
 import { productRepository } from '@/lib/infra/repositories'
 import { NextResponse } from 'next/server'
 
-export async function GET({ params }: { params: Promise<{ id: string }> }) {
+export async function GET(
+  request: Request,
+  { params }: { params: Promise<{ id: string }> },
+) {
   const { id } = await params
 
   const getProductById = new GetProductById(productRepository)
@@ -38,10 +42,13 @@ export async function PUT(
   })
 }
 
-export async function DELETE({ params }: { params: Promise<{ id: string }> }) {
+export async function DELETE(
+  request: Request,
+  { params }: { params: Promise<{ id: string }> },
+) {
   const { id } = await params
 
-  const deleteProduct = new DeleteProduct(productRepository)
+  const deleteProduct = new DeleteProduct(productRepository, storageService)
   await deleteProduct.execute(id)
 
   return NextResponse.json<ResponseDto<void>>({
