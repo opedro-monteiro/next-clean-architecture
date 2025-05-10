@@ -1,5 +1,6 @@
 import { ResponseDto } from '@/application/dtos/response.dto'
 import { StorageDto } from '@/application/dtos/storage.dto'
+import { resizeImage } from '@/application/utils/resizeImage'
 import { storageService } from '@/lib/aws/storage'
 import { NextRequest, NextResponse } from 'next/server'
 
@@ -11,7 +12,9 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'No file provided' }, { status: 400 })
   }
 
-  const result = await storageService.upload(file, file.name)
+  const resizedFile = await resizeImage(file)
+
+  const result = await storageService.upload(resizedFile)
 
   if (!result) {
     return NextResponse.json({ error: result }, { status: 500 })
@@ -29,8 +32,6 @@ export async function DELETE(req: NextRequest) {
   const { searchParams } = new URL(req.url)
   const name = searchParams.get('name')
 
-  console.log('@DELETE name=', name)
-
   if (!name) {
     return NextResponse.json(
       { error: 'filename not provided' },
@@ -39,8 +40,6 @@ export async function DELETE(req: NextRequest) {
   }
 
   await storageService.delete(name)
-
-  console.log('@DELETE after delete')
 
   return NextResponse.json<ResponseDto<void>>({
     message: 'File deleted successfully',
