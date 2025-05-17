@@ -14,6 +14,7 @@ const eslintConfig = [
   ...compat.extends(
     '@rocketseat/eslint-config/next',
     'plugin:@tanstack/query/recommended',
+    'prettier',
   ),
   prettier,
 ]

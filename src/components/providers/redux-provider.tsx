@@ -1,6 +1,6 @@
 'use client'
 
-import store from '@/application/store/store'
+import { store } from '@/application/store/store'
 import { ReactNode } from 'react'
 import { Provider } from 'react-redux'
 

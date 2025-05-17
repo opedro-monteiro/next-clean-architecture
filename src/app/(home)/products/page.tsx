@@ -6,11 +6,16 @@ import { SidebarContent } from '@/components/sidebar-content'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetTrigger } from '@/components/ui/sheet'
 import { useProducts } from '@/hooks/products/use-get-products'
+import { useAppSelector } from '@/hooks/redux.hook'
 import { SlidersVerticalIcon } from 'lucide-react'
+import { useTheme } from 'next-themes'
 import { useEffect, useState } from 'react'
 
 export default function Products() {
   const [isOpen, setIsOpen] = useState(false)
+
+  const { } = useAppSelector((rootReducer) => rootReducer.userReducer)
+  const { setTheme } = useTheme()
 
   const { data: products, isLoading } = useProducts()
 
